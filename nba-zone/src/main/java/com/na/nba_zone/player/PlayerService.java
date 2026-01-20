@@ -1,6 +1,8 @@
 package com.na.nba_zone.player;
 
+import java.util.Optional;
 import org.springframework.stereotype.Component;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,4 +49,40 @@ public class PlayerService {
     }
 
     //add player to DB
+    public Player addPlayer(Player player){
+        playerRepository.save(player);
+        return player;
+    }
+
+    //update player
+    public Player update(Player player){    
+        //find player by their name
+        Optional<Player> exists = playerRepository.findByName(player.getName());
+
+        //if the player exists, update their name, team 
+        if (exists.isPresent()){
+            Player update = exists.get();
+            update.setName(player.getName());
+            update.setTeam(player.getTeam());
+            update.setPos(player.getPos());
+            playerRepository.save(update); //save the actual changes in the update
+
+            //update more stats if needed in future
+            return update;
+
+        }
+        return null;
+    }
+    //delete player 
+    //use transactional to prevent partial deletions (ensures player is entirely deleted or not)
+        //maintain data integrity
+    @Transactional
+    public void removePlayer(String player){
+        //if player doesn't exist, throw error
+        if (!playerRepository.existsById(player)){
+            throw new IllegalStateException(player + " does not exist");
+        }
+        //else delete player
+        playerRepository.deleteByName(player);
+    }
 }
