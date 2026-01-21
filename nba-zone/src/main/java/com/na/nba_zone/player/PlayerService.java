@@ -24,7 +24,7 @@ public class PlayerService {
     //get player by team name
     public List<Player> getPlayerFromTeam(String teamName){
         return playerRepository.findAll().stream()  
-                .filter(player -> teamName.equals(player.getTeam()))    //get players by specific teamName
+                .filter(player -> teamName.equals(player.getTeam_name()))    //get players by specific teamName
                 .collect(Collectors.toList()); //convert remaining players back into a list
     }
 
@@ -37,14 +37,14 @@ public class PlayerService {
     //get players by position
     public List<Player> getPlayerByPos(String position){
         return playerRepository.findAll().stream()  
-                .filter(player -> player.getPos().toLowerCase().contains(position.toLowerCase()))   
+                .filter(player -> player.getPosition().toLowerCase().contains(position.toLowerCase()))   
                 .collect(Collectors.toList()); //convert remaining players back into a list
     }
 
     //get players from team and position
     public List<Player> getPlayerByTeamAndPosition(String team, String position){
         return playerRepository.findAll().stream()  
-                .filter(player -> team.equals(player.getTeam()) && position.equals(player.getPos()))   
+                .filter(player -> team.equals(player.getTeam_name()) && position.equals(player.getPosition()))   
                 .collect(Collectors.toList()); //convert remaining players back into a list
     }
 
@@ -63,8 +63,8 @@ public class PlayerService {
         if (exists.isPresent()){
             Player update = exists.get();
             update.setName(player.getName());
-            update.setTeam(player.getTeam());
-            update.setPos(player.getPos());
+            update.setTeam_name(player.getTeam_name());
+            update.setPosition(player.getPosition());
             playerRepository.save(update); //save the actual changes in the update
 
             //update more stats if needed in future

@@ -8,345 +8,288 @@ import jakarta.persistence.Column;
 //initalize player objects/class
 
 @Entity
-@Table(name="player_stats")
+@Table(name="player_statistic")
 public class Player {
     @Id
-    @Column(name = "name", unique = true)
+    @Column(name = "player_name", unique = true)
     private String name;
     private Integer age;
-    private String team;
-    private String pos;
-    private Integer g;
-    private Integer gs;
-    private Float mp;
-    private Float fg;
-    private Float fga;
+    private String team_name;
+    private String position;
 
-    @Column(name = "FG%") // Maps the % column correctly
-    private Float fgPercent;
+    private Integer games_played;
+    private Integer games_started;
+    private Float minutes_played;
 
-    private Float threeP;
-    private Float threePA;
+    private Float field_goals;
+    private Float field_goal_attempts;
+     private Float field_goal_percent;
 
-    @Column(name = "3P%")
-    private Float threePPercent;
+    private Float three_point_field_goals;
+    private Float three_point_attempts;
+    private Float three_point_percent;
 
-    private Float twoP;
-    private Float twoPA;
+    private Float two_point_field_goals;
+    private Float two_point_attempts;
+    private Float two_point_percent;
 
-    @Column(name = "2P%")
-    private Float twoPPercent;
+    private Float effective_field_goal_percent;
 
-    @Column(name = "eFG%")
-    private Float efgPercent;
+    private Float free_throws;
+    private Float free_throw_attempts;
+    private Float free_throw_percent;
 
-    private Float ft;
-    private Float fta;
+    private Float offensive_rebounds;
+    private Float defensive_rebounds;
+    private Float total_rebounds;
+    private Float assists;
+    private Float steals;
+    private Float blocks;
+    private Float turnovers;
+    private Float personal_fouls;
+    
+    private Float total_points;
 
-    @Column(name = "FT%")
-    private Float ftPercent;
-
-    private Float orb;
-    private Float drb;
-    private Float trb;
-    private Float ast;
-    private Float stl;
-    private Float blk;
-    private Float tov;
-    private Float pf;
-    private Float pts;
-
-    @Column(name = "Trp-Dbl")
-    private Integer trpDbl;
+    private Integer triple_doubles;
 
     private String awards;
 
+    public Player(){
+
+    }
     //parameterized constructor
-    public Player(String name, Integer age, String team, String pos, Integer g, Integer gs, Float mp, Float fg,
-            Float fga, Float fgPercent, Float threeP, Float threePA, Float threePPercent, Float twoP, Float twoPA,
-            Float twoPPercent, Float efgPercent, Float ft, Float fta, Float ftPercent, Float orb, Float drb, Float trb,
-            Float ast, Float stl, Float blk, Float tov, Float pf, Float pts, Integer trpDbl, String awards) {
+    public Player(String name, Integer age, String team_name, String position, Integer games_played,
+            Integer games_started, Float minutes_played, Float field_goals, Float field_goal_attempts,
+            Float field_goal_percent, Float three_point_field_goals, Float three_point_attempts,
+            Float three_point_percent, Float two_point_field_goals, Float two_point_attempts, Float two_point_percent,
+            Float effective_field_goal_percent, Float free_throws, Float free_throw_attempts, Float free_throw_percent,
+            Float offensive_rebounds, Float defensive_rebounds, Float total_rebounds, Float assists, Float steals,
+            Float blocks, Float turnovers, Float personal_fouls, Float total_points, Integer triple_doubles,
+            String awards) {
         this.name = name;
         this.age = age;
-        this.team = team;
-        this.pos = pos;
-        this.g = g;
-        this.gs = gs;
-        this.mp = mp;
-        this.fg = fg;
-        this.fga = fga;
-        this.fgPercent = fgPercent;
-        this.threeP = threeP;
-        this.threePA = threePA;
-        this.threePPercent = threePPercent;
-        this.twoP = twoP;
-        this.twoPA = twoPA;
-        this.twoPPercent = twoPPercent;
-        this.efgPercent = efgPercent;
-        this.ft = ft;
-        this.fta = fta;
-        this.ftPercent = ftPercent;
-        this.orb = orb;
-        this.drb = drb;
-        this.trb = trb;
-        this.ast = ast;
-        this.stl = stl;
-        this.blk = blk;
-        this.tov = tov;
-        this.pf = pf;
-        this.pts = pts;
-        this.trpDbl = trpDbl;
+        this.team_name = team_name;
+        this.position = position;
+        this.games_played = games_played;
+        this.games_started = games_started;
+        this.minutes_played = minutes_played;
+        this.field_goals = field_goals;
+        this.field_goal_attempts = field_goal_attempts;
+        this.field_goal_percent = field_goal_percent;
+        this.three_point_field_goals = three_point_field_goals;
+        this.three_point_attempts = three_point_attempts;
+        this.three_point_percent = three_point_percent;
+        this.two_point_field_goals = two_point_field_goals;
+        this.two_point_attempts = two_point_attempts;
+        this.two_point_percent = two_point_percent;
+        this.effective_field_goal_percent = effective_field_goal_percent;
+        this.free_throws = free_throws;
+        this.free_throw_attempts = free_throw_attempts;
+        this.free_throw_percent = free_throw_percent;
+        this.offensive_rebounds = offensive_rebounds;
+        this.defensive_rebounds = defensive_rebounds;
+        this.total_rebounds = total_rebounds;
+        this.assists = assists;
+        this.steals = steals;
+        this.blocks = blocks;
+        this.turnovers = turnovers;
+        this.personal_fouls = personal_fouls;
+        this.total_points = total_points;
+        this.triple_doubles = triple_doubles;
         this.awards = awards;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public Integer getAge() {
         return age;
     }
-
     public void setAge(Integer age) {
         this.age = age;
     }
-
-    public String getTeam() {
-        return team;
+    public String getTeam_name() {
+        return team_name;
     }
-
-    public void setTeam(String team) {
-        this.team = team;
+    public void setTeam_name(String team_name) {
+        this.team_name = team_name;
     }
-
-    public String getPos() {
-        return pos;
+    public String getPosition() {
+        return position;
     }
-
-    public void setPos(String pos) {
-        this.pos = pos;
+    public void setPosition(String position) {
+        this.position = position;
     }
-
-    public Integer getG() {
-        return g;
+    public Integer getGames_played() {
+        return games_played;
     }
-
-    public void setG(Integer g) {
-        this.g = g;
+    public void setGames_played(Integer games_played) {
+        this.games_played = games_played;
     }
-
-    public Integer getGs() {
-        return gs;
+    public Integer getGames_started() {
+        return games_started;
     }
-
-    public void setGs(Integer gs) {
-        this.gs = gs;
+    public void setGames_started(Integer games_started) {
+        this.games_started = games_started;
     }
-
-    public Float getMp() {
-        return mp;
+    public Float getMinutes_played() {
+        return minutes_played;
     }
-
-    public void setMp(Float mp) {
-        this.mp = mp;
+    public void setMinutes_played(Float minutes_played) {
+        this.minutes_played = minutes_played;
     }
-
-    public Float getFg() {
-        return fg;
+    public Float getField_goals() {
+        return field_goals;
     }
-
-    public void setFg(Float fg) {
-        this.fg = fg;
+    public void setField_goals(Float field_goals) {
+        this.field_goals = field_goals;
     }
-
-    public Float getFga() {
-        return fga;
+    public Float getField_goal_attempts() {
+        return field_goal_attempts;
     }
-
-    public void setFga(Float fga) {
-        this.fga = fga;
+    public void setField_goal_attempts(Float field_goal_attempts) {
+        this.field_goal_attempts = field_goal_attempts;
     }
-
-    public Float getFgPercent() {
-        return fgPercent;
+    public Float getField_goal_percent() {
+        return field_goal_percent;
     }
-
-    public void setFgPercent(Float fgPercent) {
-        this.fgPercent = fgPercent;
+    public void setField_goal_percent(Float field_goal_percent) {
+        this.field_goal_percent = field_goal_percent;
     }
-
-    public Float getThreeP() {
-        return threeP;
+    public Float getThree_point_field_goals() {
+        return three_point_field_goals;
     }
-
-    public void setThreeP(Float threeP) {
-        this.threeP = threeP;
+    public void setThree_point_field_goals(Float three_point_field_goals) {
+        this.three_point_field_goals = three_point_field_goals;
     }
-
-    public Float getThreePA() {
-        return threePA;
+    public Float getThree_point_attempts() {
+        return three_point_attempts;
     }
-
-    public void setThreePA(Float threePA) {
-        this.threePA = threePA;
+    public void setThree_point_attempts(Float three_point_attempts) {
+        this.three_point_attempts = three_point_attempts;
     }
-
-    public Float getThreePPercent() {
-        return threePPercent;
+    public Float getThree_point_percent() {
+        return three_point_percent;
     }
-
-    public void setThreePPercent(Float threePPercent) {
-        this.threePPercent = threePPercent;
+    public void setThree_point_percent(Float three_point_percent) {
+        this.three_point_percent = three_point_percent;
     }
-
-    public Float getTwoP() {
-        return twoP;
+    public Float getTwo_point_field_goals() {
+        return two_point_field_goals;
     }
-
-    public void setTwoP(Float twoP) {
-        this.twoP = twoP;
+    public void setTwo_point_field_goals(Float two_point_field_goals) {
+        this.two_point_field_goals = two_point_field_goals;
     }
-
-    public Float getTwoPA() {
-        return twoPA;
+    public Float getTwo_point_attempts() {
+        return two_point_attempts;
     }
-
-    public void setTwoPA(Float twoPA) {
-        this.twoPA = twoPA;
+    public void setTwo_point_attempts(Float two_point_attempts) {
+        this.two_point_attempts = two_point_attempts;
     }
-
-    public Float getTwoPPercent() {
-        return twoPPercent;
+    public Float getTwo_point_percent() {
+        return two_point_percent;
     }
-
-    public void setTwoPPercent(Float twoPPercent) {
-        this.twoPPercent = twoPPercent;
+    public void setTwo_point_percent(Float two_point_percent) {
+        this.two_point_percent = two_point_percent;
     }
-
-    public Float getEfgPercent() {
-        return efgPercent;
+    public Float getEffective_field_goal_percent() {
+        return effective_field_goal_percent;
     }
-
-    public void setEfgPercent(Float efgPercent) {
-        this.efgPercent = efgPercent;
+    public void setEffective_field_goal_percent(Float effective_field_goal_percent) {
+        this.effective_field_goal_percent = effective_field_goal_percent;
     }
-
-    public Float getFt() {
-        return ft;
+    public Float getFree_throws() {
+        return free_throws;
     }
-
-    public void setFt(Float ft) {
-        this.ft = ft;
+    public void setFree_throws(Float free_throws) {
+        this.free_throws = free_throws;
     }
-
-    public Float getFta() {
-        return fta;
+    public Float getFree_throw_attempts() {
+        return free_throw_attempts;
     }
-
-    public void setFta(Float fta) {
-        this.fta = fta;
+    public void setFree_throw_attempts(Float free_throw_attempts) {
+        this.free_throw_attempts = free_throw_attempts;
     }
-
-    public Float getFtPercent() {
-        return ftPercent;
+    public Float getFree_throw_percent() {
+        return free_throw_percent;
     }
-
-    public void setFtPercent(Float ftPercent) {
-        this.ftPercent = ftPercent;
+    public void setFree_throw_percent(Float free_throw_percent) {
+        this.free_throw_percent = free_throw_percent;
     }
-
-    public Float getOrb() {
-        return orb;
+    public Float getOffensive_rebounds() {
+        return offensive_rebounds;
     }
-
-    public void setOrb(Float orb) {
-        this.orb = orb;
+    public void setOffensive_rebounds(Float offensive_rebounds) {
+        this.offensive_rebounds = offensive_rebounds;
     }
-
-    public Float getDrb() {
-        return drb;
+    public Float getDefensive_rebounds() {
+        return defensive_rebounds;
     }
-
-    public void setDrb(Float drb) {
-        this.drb = drb;
+    public void setDefensive_rebounds(Float defensive_rebounds) {
+        this.defensive_rebounds = defensive_rebounds;
     }
-
-    public Float getTrb() {
-        return trb;
+    public Float getTotal_rebounds() {
+        return total_rebounds;
     }
-
-    public void setTrb(Float trb) {
-        this.trb = trb;
+    public void setTotal_rebounds(Float total_rebounds) {
+        this.total_rebounds = total_rebounds;
     }
-
-    public Float getAst() {
-        return ast;
+    public Float getAssists() {
+        return assists;
     }
-
-    public void setAst(Float ast) {
-        this.ast = ast;
+    public void setAssists(Float assists) {
+        this.assists = assists;
     }
-
-    public Float getStl() {
-        return stl;
+    public Float getSteals() {
+        return steals;
     }
-
-    public void setStl(Float stl) {
-        this.stl = stl;
+    public void setSteals(Float steals) {
+        this.steals = steals;
     }
-
-    public Float getBlk() {
-        return blk;
+    public Float getBlocks() {
+        return blocks;
     }
-
-    public void setBlk(Float blk) {
-        this.blk = blk;
+    public void setBlocks(Float blocks) {
+        this.blocks = blocks;
     }
-
-    public Float getTov() {
-        return tov;
+    public Float getTurnovers() {
+        return turnovers;
     }
-
-    public void setTov(Float tov) {
-        this.tov = tov;
+    public void setTurnovers(Float turnovers) {
+        this.turnovers = turnovers;
     }
-
-    public Float getPf() {
-        return pf;
+    public Float getPersonal_fouls() {
+        return personal_fouls;
     }
-
-    public void setPf(Float pf) {
-        this.pf = pf;
+    public void setPersonal_fouls(Float personal_fouls) {
+        this.personal_fouls = personal_fouls;
     }
-
-    public Float getPts() {
-        return pts;
+    public Float getTotal_points() {
+        return total_points;
     }
-
-    public void setPts(Float pts) {
-        this.pts = pts;
+    public void setTotal_points(Float total_points) {
+        this.total_points = total_points;
     }
-
-    public Integer getTrpDbl() {
-        return trpDbl;
+    public Integer getTriple_doubles() {
+        return triple_doubles;
     }
-
-    public void setTrpDbl(Integer trpDbl) {
-        this.trpDbl = trpDbl;
+    public void setTriple_doubles(Integer triple_doubles) {
+        this.triple_doubles = triple_doubles;
     }
-
     public String getAwards() {
         return awards;
     }
-
     public void setAwards(String awards) {
         this.awards = awards;
     }
-   
+
+    //setters and getters
+    
+
+    
+
 
 }
 
