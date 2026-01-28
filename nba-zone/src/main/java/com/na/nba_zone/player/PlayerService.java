@@ -1,6 +1,5 @@
 package com.na.nba_zone.player;
 
-import java.util.Optional;
 import org.springframework.stereotype.Component;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -21,68 +20,69 @@ public class PlayerService {
     public List<Player> getPlayers(){
         return playerRepository.findAll();
     }
-    //get player by team name
+    
+    //get player by team name 
     public List<Player> getPlayerFromTeam(String teamName){
-        return playerRepository.findAll().stream()  
-                .filter(player -> teamName.equals(player.getTeam_name()))    //get players by specific teamName
-                .collect(Collectors.toList()); //convert remaining players back into a list
+        return playerRepository.findByTeamName(teamName); //repository method
     }
 
     //get players by specific name
     public List<Player> getPlayerByName(String name){
-        return playerRepository.findAll().stream()  
-                .filter(player -> player.getName().toLowerCase().contains(name.toLowerCase()))   
-                .collect(Collectors.toList()); //convert remaining players back into a list
+        // return playerRepository.findAll().stream()  
+        //         .filter(player -> player.getName() != null && 
+        //                 player.getName().toLowerCase().contains(name.toLowerCase()))   
+        //         .collect(Collectors.toList());
+        return playerRepository.findByNameContainingIgnoreCase(name); //repository method for effiency
     }
+    
     //get players by position
     public List<Player> getPlayerByPos(String position){
-        return playerRepository.findAll().stream()  
-                .filter(player -> player.getPosition().toLowerCase().contains(position.toLowerCase()))   
-                .collect(Collectors.toList()); //convert remaining players back into a list
+        // return playerRepository.findAll().stream()  
+        //         .filter(player -> player.getPosition() != null && 
+        //                 player.getPosition().toLowerCase().contains(position.toLowerCase()))   
+        //         .collect(Collectors.toList());
+        return playerRepository.findByPositionContainingIgnoreCase(position); //repository method for effiency
     }
 
-    //get players from team and position
+    //get players from team and position with the PlayerRepository method
     public List<Player> getPlayerByTeamAndPosition(String team, String position){
-        return playerRepository.findAll().stream()  
-                .filter(player -> team.equals(player.getTeam_name()) && position.equals(player.getPosition()))   
-                .collect(Collectors.toList()); //convert remaining players back into a list
+        return playerRepository.findByTeamNameAndPosition(team, position);
     }
 
-    //add player to DB
+    //add player to database
     public Player addPlayer(Player player){
-        playerRepository.save(player);
-        return player;
+        return playerRepository.save(player);
     }
 
     //update player
     public Player update(Player player){    
-        //find player by their name
-        Optional<Player> exists = playerRepository.findByName(player.getName());
+        //find player by their name, return a list since we have multiple seasons
+        List<Player> playerList = playerRepository.findByName(player.getName());
 
-        //if the player exists, update their name, team 
-        if (exists.isPresent()){
-            Player update = exists.get();
+        //if the player exists, update the first match
+        if (!playerList.isEmpty()){
+            Player update = playerList.get(0);
             update.setName(player.getName());
-            update.setTeam_name(player.getTeam_name());
+            update.setTeamName(player.getTeamName());
             update.setPosition(player.getPosition());
-            playerRepository.save(update); //save the actual changes in the update
+            update.setSeason(player.getSeason());
+            playerRepository.save(update);
 
-            //update more stats if needed in future
             return update;
-
         }
         return null;
     }
-    //delete player 
-    //use transactional to prevent partial deletions (ensures player is entirely deleted or not)
-        //maintain data integrity
+    
+    //delete player, deletes all records for that player and their seasons + teams
     @Transactional
-    public void removePlayer(String player){
+    public void removePlayer(String playerName){
+        List<Player> players = playerRepository.findByName(playerName);
+        
         //if player doesn't exist, throw error
-        if (!playerRepository.existsById(player)){
-            throw new IllegalStateException(player + " does not exist");
+        if (players.isEmpty()){
+            throw new IllegalStateException(playerName + " does not exist");
         }
-        //else delete player
-        playerRepository.deleteByName(player);
+        //else delete all records for that player
+        playerRepository.deleteByName(playerName);
     }
 }

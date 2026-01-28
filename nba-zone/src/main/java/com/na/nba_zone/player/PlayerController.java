@@ -37,38 +37,48 @@ public class PlayerController {
         @RequestParam(required = false) String name,
         @RequestParam(required = false) String team,
         @RequestParam(required = false) String pos){
+
+            // long startTime = System.currentTimeMillis(); //meeasure query MS
+            List<Player> result; 
             //get players by their team, name, or position
             if(team != null && pos != null){
-                return playerService.getPlayerByTeamAndPosition(team, pos);
+                result = playerService.getPlayerByTeamAndPosition(team, pos);
             }
+
             else if(team != null){
-                return playerService.getPlayerFromTeam(team);
+                result = playerService.getPlayerFromTeam(team);
             }
+
             else if(name != null){
-                return playerService.getPlayerByName(name);
+                result =  playerService.getPlayerByName(name);
             }
             else if(pos != null){
-                return playerService.getPlayerByPos(pos);
+                result =  playerService.getPlayerByPos(pos);
             }
             //return otherwise
             else{
-            return playerService.getPlayers();
+                result =  playerService.getPlayers();
             }
+            // long endTime = System.currentTimeMillis();
+            // System.out.println("Query executed in: " + (endTime-startTime) + "ms");
+            // System.out.println("Results returned: " + result.size() + " records");
+            return result;
     }
+    
     @PostMapping
     public ResponseEntity<Player> addPlayer(@RequestBody Player player) {
         //try to add this player
         Player createdPlayer = playerService.addPlayer(player);
-        //return the created player wth status code 201 if successful
+        //return the created player with status code 201 if successful
         return new ResponseEntity<>(createdPlayer, HttpStatus.CREATED);
-        
     }
+    
     //update existing player
     @PutMapping
     public ResponseEntity<Player> updatePlayer(@RequestBody Player player) {
         Player updatePlayer = playerService.update(player);
 
-        //succsefully updated player
+        //successfully updated player
         if (updatePlayer != null){
             return new ResponseEntity<>(updatePlayer, HttpStatus.OK);
         }
@@ -77,12 +87,10 @@ public class PlayerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    // @DeleteMapping
-    @DeleteMapping("/{playerName}")
     //@pathvariable is what gets passed into {playerName}
-    public ResponseEntity<String> deletePlayer(@PathVariable String player){
-        playerService.removePlayer(player);
+    @DeleteMapping("/{playerName}")
+    public ResponseEntity<String> deletePlayer(@PathVariable String playerName){
+        playerService.removePlayer(playerName);
         return new ResponseEntity<>("Player deleted successfully", HttpStatus.OK);
     }
-    
 }
