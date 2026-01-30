@@ -3,7 +3,6 @@ package com.na.nba_zone.player;
 import org.springframework.stereotype.Component;
 import jakarta.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 //service class sits between controller and repository (business logic)
 //tells spring to create an instance of this class and manage its lifecycle
