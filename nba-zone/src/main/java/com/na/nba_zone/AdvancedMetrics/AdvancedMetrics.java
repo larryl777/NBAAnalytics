@@ -33,7 +33,7 @@ public class AdvancedMetrics {
     @Column(name = "effective_field_goal_percent")
     private Float effectiveFieldGoalPercent;
     @Column(name = "usage_rate")
-    private Float usageRage;
+    private Float usageRate;
 
     //advanced impact metrics
     @Column(name = "player_efficiency_rating")
@@ -83,7 +83,7 @@ public class AdvancedMetrics {
     }
     
     public AdvancedMetrics(Long id, String playerName, Integer season, Float trueShootingPercent,
-            Float effectiveFieldGoalPercent, Float usageRage, Float playerEfficiencyRating, Float offensiveRating,
+            Float effectiveFieldGoalPercent, Float usageRate, Float playerEfficiencyRating, Float offensiveRating,
             Float defensiveRating, Float pointsPer36, Float assistsPer36, Float reboundsPer36, Float blocksPer36,
             Float stealsPer36, Float assistRate, Float turnoverRate, Float reboundRate, Float stealRate,
             Float blockRate, Float threePtAttemptRate, Float freeThrowRate) {
@@ -92,7 +92,7 @@ public class AdvancedMetrics {
         this.season = season;
         this.trueShootingPercent = trueShootingPercent;
         this.effectiveFieldGoalPercent = effectiveFieldGoalPercent;
-        this.usageRage = usageRage;
+        this.usageRate = usageRate;
         this.playerEfficiencyRating = playerEfficiencyRating;
         this.offensiveRating = offensiveRating;
         this.defensiveRating = defensiveRating;
@@ -141,11 +141,11 @@ public class AdvancedMetrics {
     public void setEffectiveFieldGoalPercent(Float effectiveFieldGoalPercent) {
         this.effectiveFieldGoalPercent = effectiveFieldGoalPercent;
     }
-    public Float getUsageRage() {
-        return usageRage;
+    public Float getUsageRate() {
+        return usageRate;
     }
-    public void setUsageRage(Float usageRage) {
-        this.usageRage = usageRage;
+    public void setUsageRate(Float usageRage) {
+        this.usageRate = usageRage;
     }
     public Float getPlayerEfficiencyRating() {
         return playerEfficiencyRating;
